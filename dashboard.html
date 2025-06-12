@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tu Salud</title>
+  <link rel="stylesheet" href="./estilos/Estilos.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <img src="logo.png" alt="Logo Tu Salud" class="logo-img" />
+    </div>
+    <ul class="navbar-links">
+      <li><a href="#formCita">Agendar Cita</a></li>
+      <li><a href="index.html">
+          <font color="red">Cerrar sesión</font>
+        </a></li>
+    </ul>
+  </nav>
+
+  <div class="row">
+    <form id="formPaciente">
+      <h2>Registrar Paciente</h2>
+      <label>Nombre:</label>
+      <input type="text" name="nombre" required>
+      <label>Documento:</label>
+      <input type="text" name="documento" required>
+      <label>Teléfono:</label>
+      <input type="text" name="telefono" required>
+      
+      <button type="submit" style="background-color: rgb(0, 253, 169);"> Registrar</button>
+      <button type="submit">Actualizar</button>
+    </form>
+
+    <form id="formMedico">
+      <h2>Registrar Médico</h2>
+
+      <label>Nombre:</label>
+      <input type="text" name="nombre" required>
+
+      <label>Especialidad:</label>
+      <input type="text" name="especialidad" required>
+
+      <label for="estado">Estado:</label>
+      <select id="estado" name="estado" required>
+        <option value="">Seleccione un estado</option>
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+      </select>
+      
+      <button type="submit">Registrar</button>
+    </form>
+  </div>
+
+
+  <form id="formCita" style="margin-top: 30px;">
+    <h2>Agendar Cita</h2>
+
+    <label for="paciente_id">Paciente:</label>
+    <select name="paciente_id" id="paciente_id" required>
+      <option value="">Seleccione un paciente</option>
+    </select>
+
+    <label for="especialidad">Especialidad:</label>
+    <select id="especialidad" required>
+      <option value="">Seleccione una especialidad</option>
+    </select>
+
+    <label for="medico_id">Médico:</label>
+    <select name="medico_id" id="medico_id" required>
+      <option value="">Seleccione un médico</option>
+    </select>
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" name="fecha" id="fecha" required />
+
+    <label for="hora">Hora:</label>
+    <select name="hora" id="hora" required>
+        <option value="">Seleccione una hora</option>
+    </select>
+    
+
+    <div id="disponibilidad" style="margin-top: 8px; font-weight: bold;"></div>
+    <button type="submit" id="btnAgendar">Agendar</button>
+
+  </form>
+  
+
+  <div class="section">
+    <h2>Listado de Citas</h2>
+    <button onclick="cargarCitas()">Actualizar</button>
+    <table id="tablaCitas">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Paciente</th>
+          <th>Médico</th>
+          <th>Especialidad</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="modalPaciente" class="modal-confirm" style="display: none;">
+    <div class="modal-box">
+      <h4>¡Paciente Registrado!</h4>
+      <p>El paciente ha sido registrado exitosamente.</p>
+      <div class="modal-actions">
+        <button class="btn-cita" onclick="cerrarModal('modalPaciente')">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalMedico" class="modal-confirm" style="display: none;">
+    <div class="modal-box">
+      <h4>¡Médico Registrado!</h4>
+      <p>El médico ha sido registrado exitosamente.</p>
+      <div class="modal-actions">
+        <button class="btn-cita" onclick="cerrarModal('modalMedico')">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalCitaAgendada" class="modal-confirm" style="display: none;">
+    <div class="modal-box">
+      <h4>¡Cita Agendada!</h4>
+      <p>Su cita ha sido agendada exitosamente.</p>
+      <div class="modal-actions">
+        <button class="btn-cita" onclick="cerrarModal('modalCitaAgendada')">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalErrorCita" class="modal-confirm" style="display: none;">
+    <div class="modal-box">
+      <h4>Error al Agendar Cita</h4>
+      <p id="mensajeErrorCita"></p>
+      <div class="modal-actions">
+        <button class="btn-cita" onclick="cerrarModal('modalErrorCita')">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./scripts/funciones.js"> </script>
+</body>
+</html>

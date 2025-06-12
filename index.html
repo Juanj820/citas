@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ingreso - Tu Salud</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #3498db, #2ecc71);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .login-box h1 {
+      margin-bottom: 25px;
+      text-align: center;
+      color: #2d9c6a;
+      margin-top: 0px;
+    }
+
+    .login-box h5 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #929293;
+      font-size: 20px;
+      margin-top: 0px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #2d9c6a;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2ea570;
+    }
+
+    .mensaje {
+      text-align: center;
+      color: red;
+      margin-top: 10px;
+    }
+
+    .logo img{
+        width: 200px;
+        height: 180px;
+        padding-left:150px;
+        margin-top: 0;
+
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <div class="header_superior">
+                <div class="logo">
+                    <img src="logo.png" alt="logo">
+                </div>
+
+            </div>
+    <h1>Bienvenido a Tu Salud</h1>
+      <h5>Ingrese sus datos para continuar</h5>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="usuario"></label>
+        <input type="text" id="usuario" placeholder="Código de acceso" name="usuario" required />
+      </div>
+      <div class="form-group">
+        <label for="clave"></label>
+        <input type="password" id="clave" placeholder="Contraseña" name="clave" required />
+      </div>
+      <button type="submit">Ingresar</button>
+      <div class="mensaje" id="mensajeError"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const datos = {
+        usuario: document.getElementById('usuario').value,
+        clave: document.getElementById('clave').value
+      };
+
+      const res = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(datos)
+      });
+
+      const respuesta = await res.json();
+      if (res.ok && respuesta.success) {
+        // Redirige a la vista principal
+        window.location.href = 'dashboard.html';
+      } else {
+        document.getElementById('mensajeError').innerText = respuesta.message || 'Credenciales incorrectas.';
+      }
+    });
+  </script>
+  
+  
+</body>
+</html>
